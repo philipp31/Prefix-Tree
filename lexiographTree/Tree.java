@@ -3,7 +3,7 @@ package lexiographTree;
 /**
 *
 * provides a lexiographic Tree which allows it to save Words under usage of data compression.
-* everyone who likes recursive data structures will love it :D
+* everyone who likes recursive data structures will like it :D
 *
 * @author Philipp, Slebioda, 4809007
 */
@@ -32,7 +32,6 @@ public class Tree {
 	}
 	
 	public void insertRecursive(String input) {
-		System.out.println("");
 		System.out.println("******* Das einzufügende Wort lautet: " + input + " **********");
 		String littleString = converterObj.convString(input);
 		char[] inputChar = littleString.toCharArray();
@@ -41,8 +40,6 @@ public class Tree {
 
 		for(int i=0; i < 26; i++) {
 			try {
-			/*	String gegeben = String.valueOf(ref.children[i].getValue());
-				System.out.println("children[].value : " + gegeben ); ' untersuchter Wert: " + String.valueOf(inputChar[0])); */
 				if(ref.children[i].getValue() == inputChar[0]) {
 					position = i;
 				}	
@@ -125,66 +122,57 @@ public class Tree {
 				}
 		  }	
 	}
-	/*
+	
 	public void insertIterative(String input) {
 		String littleString = converterObj.convString(input);
 		char[] inputChar = littleString.toCharArray();
-		int position;
-		Node cacheObj = new Node('a');
-		for(int i = 0; i < root.children.length; i++) {
-			cacheObj.setValue(inputChar[i]);
-			position = root.getSameChar(cacheObj);	
-			if(position == -1) {	
-			// if inputchar isnt already available-> create new node:
-				root.fuelChar(inputChar[i]);
+		int dauer=0;
+		boolean exists = false;	// wird zwar defaultmäßig mit false initialisiert aber doppelt schadet es ja nicht;)
+		Node ref = root;
+		while(dauer < inputChar.length) {
+			for(int i=0;i<26;i++) {
+				if(ref.children[i].value == inputChar[dauer]) {
+					ref = ref.children[i];
+					exists = true;
+				}
 			}
-			else {	
-				for(int k = 0; k < root.children.length; k++) {
-					position = root.children[k].getSameChar(inputChar[k]);
-					if(position == -1) {	
-			// if inputchar isnt already available -> create new node:
-						root.fuelChar(inputChar[k]);
-						position = root.getSameChar(inputChar[k]);
-						int off = 1;
-						while()
-					}
-					else {	
-						
-						
+			if(exists) {
+				for(int h=0;h<26;h++) {
+					if(ref.children[h] == null) {
+						ref.children[h] = new Node(inputChar[dauer]);
+						ref.sortChildren();
 					}
 				}
 			}
+			dauer++;
+			exists = false;
 		}
-	}*/
+	}
 		
 	public boolean search(String input) {
 		String littleString = converterObj.convString(input);
 		char[] inputChar = littleString.toCharArray();
 		int pos;
 		boolean cond;
-		for(int k = 0; k < inputChar.length; k++) {
-			pos = root.getSameChar(inputChar[0]);	
-			if(pos == -1) {
-				return false;	// if first char isnt found as children-> the word cant be in the tree
+		pos = root.getSameChar(inputChar[0]);	
+		if(pos == -1) {
+			return false;	// if first char isnt found as children-> the word cant be in the tree
+		}
+		else {
+			if(inputChar.length > 1) {
+				// cancel the first character of the string and go on, if there are more than 1 characters:
+				char[] firstCharAway = new char[(inputChar.length - 1)];
+				for(int h = 1; h < inputChar.length; h++) {
+					firstCharAway[h-1] = inputChar[h];
+				}
+				String newInput = new String(firstCharAway);
+				cond = search(root.children[pos],newInput);
+				return cond;
 			}
-			else {
-				if(inputChar.length > 1) {
-					// cancel the first character of the string and go on, if there are more than 1 characters:
-					char[] firstCharAway = new char[(inputChar.length - 1)];
-					for(int h = 1; h < inputChar.length; h++) {
-						firstCharAway[h-1] = inputChar[h];
-					}
-					String newInput = new String(firstCharAway);
-					cond = search(root.children[pos],newInput);
-					return cond;
-				}
-				else {	
-	// if charLength is 1 && getSameChar(char) found the char in Node[] childrens the whole word is inside the Tree!
-					return true;
-				}
+			else {	
+				return true;
 			}
 		}
-		return false;
 	}
 	
 	public boolean search(Node newRef, String CharAway){
@@ -192,34 +180,27 @@ public class Tree {
 		char[] inputChar = littleString.toCharArray();
 		int pos;
 		boolean cond;
-		for(int k = 0; k < inputChar.length; k++) {
-			pos = newRef.getSameChar(inputChar[0]);	
-			if(pos == -1) {
-				return false;	// if first char isnt found as children-> the word cant be in the tree
+		pos = newRef.getSameChar(inputChar[0]);	
+		if(pos == -1) {
+			return false;	// if first char isnt found as children-> the word cant be in the tree
+		}
+		else {
+			if(inputChar.length > 1) {
+				// cancel the first character of the string and go on, if there are more than 1 characters:
+				char[] firstCharAway = new char[(inputChar.length - 1)];
+				for(int h = 1; h < inputChar.length; h++) {
+					firstCharAway[h-1] = inputChar[h];
+				}
+				String newInput = new String(firstCharAway);
+				cond = search(newRef.children[pos],newInput);
+				return cond;
 			}
-			else {
-				if(inputChar.length > 1) {
-					// cancel the first character of the string and go on, if there are more than 1 characters:
-					char[] firstCharAway = new char[(inputChar.length - 1)];
-					for(int h = 1; h < inputChar.length; h++) {
-						firstCharAway[h-1] = inputChar[h];
-					}
-					String newInput = new String(firstCharAway);
-					cond = search(newRef.children[pos],newInput);
-					return cond;
-				}
-				else {	
+			else {	
 	// if charLength is 1 && getSameChar(char) found the char in Node[] childrens the whole word is inside the Tree!
-					return true;
-				}
+				return true;
 			}
 		}
-		return false;
 	}
-	
-/*	public Tree union(Tree tree) {
-	// this methode is coming ;)
-	}*/
 	
 	public int height() {
 		maxHeight = 1;
@@ -324,40 +305,26 @@ public class Tree {
 				String element = String.valueOf(root.children[h].getValue());
 				structure = structure.concat(element);
 				structure = structure.concat(", ");
-			}
-		}
-		structure = structure.concat("\n");
-		for(int k = 0; k < 26; k++) {
-			if(root.children[k] != null) {
-				toString(root.children[k]);
+				toString(root.children[h]);
 			}
 		}
 		return structure;
 	}
 
 	private void toString(Node newRef) {
+		structure = structure.concat(" (");
 		for(int h = 0; h < 26; h++) {
 			if(newRef.children[h] != null) {
 				String element = String.valueOf(newRef.children[h].getValue());
 				structure = structure.concat(element);
 				structure = structure.concat(", ");
+				toString(newRef.children[h]);
 			}
 		}
-		structure = structure.concat("\n");
-		for(int k = 0; k < 26; k++) {
-			if(newRef.children[k] != null) {
-				toString(newRef.children[k]);
-			}
-		}
+		structure = structure.concat(") ");
 	}
 	
-	private void toString(Node newRef,int k) {
-		for(int h = 0; h < 26; h++) {
-			if(newRef.children[h] != null) {
-				String element = String.valueOf(newRef.children[h].getValue());
-				structure = structure.concat(element);
-				structure = structure.concat(", ");
-			}
-		}
-	}
+	/*	public Tree union(Tree tree) {
+	// this methode is coming ;)
+	}*/
 }

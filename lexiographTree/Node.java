@@ -47,11 +47,7 @@ public class Node implements Comparable<Node> {// Interface ist generisch nicht 
 	
 	public int getSameChar(char searched) {
 		for(int i=0; i < 26; i++) {
-			if(children[i] != null) {
-				String gegeben = String.valueOf(children[i].getValue());
-			/*	String character = String.valueOf(searched);
-				String gegeben = String.valueOf(children[i].getValue());
-				System.out.println("char gesucht: " + character + ", char gegeben: " + gegeben); */
+			if(children[i] != null) {		
 				if(children[i].value == searched) {
 					return i;
 				}	

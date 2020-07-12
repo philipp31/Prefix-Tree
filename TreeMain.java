@@ -22,12 +22,18 @@ public class TreeMain {
 		System.out.println("Hier das laengste Wort: " + längstesWort);
 		int höhe = treeObj.height();
 		System.out.println("Max hoehe des Baums(root + alle Zeichen des längsten Worts): " + höhe);
-		String prefix = treeObj.longestCommonPrefix("Tee");
-		System.out.println("Der längste Prefix für 'Tee': " + prefix);
+		String prefix = treeObj.longestCommonPrefix("Teetrkalso");
+		System.out.println("Der längste gemeinsame Prefix für 'Teetrkalso': " + prefix);
 		boolean stat = treeObj.search("Teetrinker");
 		System.out.println("Ist 'Teetrinker' im Baum?: " + stat);
 		stat = treeObj.search("Teeistcool");
 		System.out.println("Ist 'Teeistcool' im Baum?: " + stat); 
+		stat = treeObj.search("Waaaas");
+		System.out.println("Ist 'Waaaas' im Baum?: " + stat);
+		stat = treeObj.search("Hallo");
+		System.out.println("Ist 'Hallo' im Baum?: " + stat);
+		stat = treeObj.search("DieseswortIstnichtdrinnen");
+		System.out.println("Ist 'DieseswortIstnichtdrinnen' im Baum?: " + stat);
 		System.out.println(treeObj);
 		
 	}

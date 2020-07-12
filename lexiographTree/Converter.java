@@ -44,7 +44,7 @@ public class Converter {
 			if(((int) cache[i]) > 90 && ((int) cache[i]) < 97) {
 				status2 = false;
 			}
-			if( ((int) cache[i]) > 122) {
+			if(((int) cache[i]) > 122) {
 				status3 = false;
 			}
 			if(status1 == false || status2 == false || status3 == false) {
