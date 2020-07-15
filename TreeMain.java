@@ -12,18 +12,23 @@ public class TreeMain {
 	
 	public static void main(String[] args) {
 		Tree treeObj = new Tree();
+		// inserting a few words to test the tree:
 		treeObj.insertRecursive("Hallo");
 		treeObj.insertRecursive("Waaaas");
 		treeObj.insertRecursive("Teetrinker");
 		treeObj.insertRecursive("Teeistcool");
 		treeObj.insertRecursive("Teeschmecktlecker");
 		treeObj.insertRecursive("chakalacahahaha");
-		String l‰ngstesWort = treeObj.longestWord();
-		System.out.println("Hier das laengste Wort: " + l‰ngstesWort);
-		int hˆhe = treeObj.height();
-		System.out.println("Max hoehe des Baums(root + alle Zeichen des l‰ngsten Worts): " + hˆhe);
+		// testing the longestWord method:
+		String l√§ngstesWort = treeObj.longestWord();
+		System.out.println("Hier das laengste Wort: " + l√§ngstesWort);
+		// testing the height method:
+		int h√∂he = treeObj.height();
+		System.out.println("Max hoehe des Baums(root + alle Zeichen des l√§ngsten Worts): " + h√∂he);
+		// testing the longestCommonPrefix method:
 		String prefix = treeObj.longestCommonPrefix("Teetrkalso");
-		System.out.println("Der l‰ngste gemeinsame Prefix f¸r 'Teetrkalso': " + prefix);
+		System.out.println("Der l√§ngste gemeinsame Prefix f√ºr 'Teetrkalso': " + prefix);
+		// testing the search method:
 		boolean stat = treeObj.search("Teetrinker");
 		System.out.println("Ist 'Teetrinker' im Baum?: " + stat);
 		stat = treeObj.search("Teeistcool");
@@ -34,6 +39,7 @@ public class TreeMain {
 		System.out.println("Ist 'Hallo' im Baum?: " + stat);
 		stat = treeObj.search("DieseswortIstnichtdrinnen");
 		System.out.println("Ist 'DieseswortIstnichtdrinnen' im Baum?: " + stat);
+		// printing the trees data structure:
 		System.out.println(treeObj);
 		
 	}
