@@ -75,7 +75,6 @@ public class Tree {
 					insertRecursive(ref.children[position],newInput);
 				}
 			}
-		
 	}
 	
 	public void insertRecursive(Node newRef, String input) {
@@ -126,21 +125,27 @@ public class Tree {
 	public void insertIterative(String input) {
 		String littleString = converterObj.convString(input);
 		char[] inputChar = littleString.toCharArray();
-		int dauer=0;
-		boolean exists = false;	// wird zwar defaultmäßig mit false initialisiert aber doppelt schadet es ja nicht;)
-		Node ref = root;
+		int dauer = 0;
+		boolean exists = false;	
+		Node ref = root;	// wir starten natürlich bei der Wurzel
 		while(dauer < inputChar.length) {
 			for(int i=0;i<26;i++) {
-				if(ref.children[i].value == inputChar[dauer]) {
-					ref = ref.children[i];
-					exists = true;
-				}
+				try {
+					if(ref.children[i].value == inputChar[dauer]) {
+						ref = ref.children[i];
+						exists = true;
+						break;
+					}
+				} catch(NullPointerException e) { }
 			}
-			if(exists) {
+			
+			if(!exists) {	// wenn kein Knoten mit dem Buchstaben gefunden wurde -> neuen Knoten erstellen
 				for(int h=0;h<26;h++) {
 					if(ref.children[h] == null) {
 						ref.children[h] = new Node(inputChar[dauer]);
-						ref.sortChildren();
+						ref.sortChildren();		// lexiographische Sortierung nach neuem Knoten erzeugen
+						ref = ref.children[h];	// und nun mit dem neuen Kind-Knoten weitersuchen!
+						break;
 					}
 				}
 			}
@@ -203,7 +208,7 @@ public class Tree {
 	}
 	
 	public int height() {
-		maxHeight = 1;
+		maxHeight = 1;	// maximum height is root+ all letters of the biggest word!
 		reference = root;
 		tempHeight = 1;
 		for(int h = 0; h < 26; h++) {
@@ -217,7 +222,6 @@ public class Tree {
 			}
 		}
 		return maxHeight;
-		
 	}
 	
 	private void height(Node current) {
@@ -325,6 +329,6 @@ public class Tree {
 	}
 	
 	/*	public Tree union(Tree tree) {
-	// this methode is coming ;)
+	// this method is coming ;)
 	}*/
 }

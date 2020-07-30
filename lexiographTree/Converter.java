@@ -11,7 +11,7 @@ import java.util.InputMismatchException;
 
 public class Converter {
 	
-	public String convString(String bigLetters) {
+	public String convString(String bigLetters) throws InputMismatchException {
 		boolean cond = correctFormat(bigLetters);
 		if(cond) {
 			// throw exception if format isnt right:

@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+
 import lexiographTree.Tree;
 // main in default package
 
@@ -12,23 +14,27 @@ public class TreeMain {
 	
 	public static void main(String[] args) {
 		Tree treeObj = new Tree();
-		// inserting a few words to test the tree:
-		treeObj.insertRecursive("Hallo");
-		treeObj.insertRecursive("Waaaas");
-		treeObj.insertRecursive("Teetrinker");
-		treeObj.insertRecursive("Teeistcool");
-		treeObj.insertRecursive("Teeschmecktlecker");
-		treeObj.insertRecursive("chakalacahahaha");
-		// testing the longestWord method:
-		String l√§ngstesWort = treeObj.longestWord();
-		System.out.println("Hier das laengste Wort: " + l√§ngstesWort);
-		// testing the height method:
-		int h√∂he = treeObj.height();
-		System.out.println("Max hoehe des Baums(root + alle Zeichen des l√§ngsten Worts): " + h√∂he);
-		// testing the longestCommonPrefix method:
+		try {
+			treeObj.insertRecursive("Hallo");
+			treeObj.insertRecursive("Waaaas");
+			treeObj.insertRecursive("Teetrinker");
+			treeObj.insertRecursive("Teeistcool");
+			treeObj.insertRecursive("Teeschmecktlecker");
+			treeObj.insertRecursive("chakalacahahaha");
+			treeObj.insertIterative("Tesssttt");
+		} catch(InputMismatchException e) {
+			System.out.println("**** InputMismatchException ****");
+		}
+		// LongestWord()-Test:
+		String l‰ngstesWort = treeObj.longestWord();
+		System.out.println("Hier das laengste Wort: " + l‰ngstesWort);
+		// heigth() method-Test:
+		int hˆhe = treeObj.height();
+		System.out.println("Max hoehe des Baums(root + alle Zeichen des l‰ngsten Worts): " + hˆhe);
+		// longestCommonPrefix()-Test:
 		String prefix = treeObj.longestCommonPrefix("Teetrkalso");
-		System.out.println("Der l√§ngste gemeinsame Prefix f√ºr 'Teetrkalso': " + prefix);
-		// testing the search method:
+		System.out.println("Der l‰ngste gemeinsame Prefix f¸r 'Teetrkalso': " + prefix);
+		// checking if all inserted word are inside the tree:
 		boolean stat = treeObj.search("Teetrinker");
 		System.out.println("Ist 'Teetrinker' im Baum?: " + stat);
 		stat = treeObj.search("Teeistcool");
@@ -37,9 +43,13 @@ public class TreeMain {
 		System.out.println("Ist 'Waaaas' im Baum?: " + stat);
 		stat = treeObj.search("Hallo");
 		System.out.println("Ist 'Hallo' im Baum?: " + stat);
+		stat = treeObj.search("Tesssttt");
+		System.out.println("Ist 'Teesssttt' im Baum?: " + stat); 
 		stat = treeObj.search("DieseswortIstnichtdrinnen");
 		System.out.println("Ist 'DieseswortIstnichtdrinnen' im Baum?: " + stat);
-		// printing the trees data structure:
+		String longWord = treeObj.longestWord();
+		System.out.println("Das l‰ngste Word ist: " + longWord);
+		// SHOWING STRUCTURE OF THE TREE:
 		System.out.println(treeObj);
 		
 	}
